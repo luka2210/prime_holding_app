@@ -29,7 +29,7 @@ public class EmployeeEntity {
 	@Pattern(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="must be of proper format (e.g. test@gmail.com)")
 	private String email;
 	@NotNull(message="is required.")
-	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message="must be of proper format (e.g. +381-64-1122333")
+	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message="must be of proper format (e.g. +381-64-1122333)")
 	private String phoneNumber;
 	@NotNull(message="is required.")
 	private Date dateOfBirth;
