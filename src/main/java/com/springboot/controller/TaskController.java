@@ -1,11 +1,14 @@
 package com.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,11 +53,16 @@ public class TaskController {
 			model.addAttribute("savedTask", task);
 			model.addAttribute("savedTaskSuccessful", true);
 		}
-		catch (Exception e) {
+		catch (DataIntegrityViolationException e) {
 			model.addAttribute("savedTaskSuccessful", false);
-			var error = (DataIntegrityViolationException) e;
-			model.addAttribute("errorMessage", error.getRootCause().getMessage());
+			model.addAttribute("errorMessage", e.getRootCause().getMessage());
 		}
 		return "add-task";
+	}
+	
+	@InitBinder
+	public void preProcessInputData(WebDataBinder dataBinder) {
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 }

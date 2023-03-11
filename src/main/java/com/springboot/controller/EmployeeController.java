@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springboot.entity.EmployeeEntity;
-import com.springboot.repository.EmployeeRepository;
+import com.springboot.service.RepositoryService;
 
 import jakarta.validation.Valid;
 
@@ -22,7 +23,20 @@ import jakarta.validation.Valid;
 @RequestMapping("/employees")
 public class EmployeeController {
 	@Autowired
-	EmployeeRepository employeeRepository;
+	RepositoryService repositoryService;
+	
+	@GetMapping("/")
+	public String showEmployees(Model model) {
+		model.addAttribute("employees", repositoryService.readAllEmployees());
+		return "show-employees";
+	}
+	
+	@PostMapping("/")
+	public String delete(@RequestParam Integer employeeId, Model model) {
+		repositoryService.deleteEmployee(employeeId);
+		model.addAttribute("employees", repositoryService.readAllEmployees());
+		return "show-employees";
+	}
 	
 	@GetMapping("/add-employee")
 	public String addEmployeeView(Model model) {
@@ -37,18 +51,39 @@ public class EmployeeController {
 			return "add-employee";
 		}
 		try {
-			employeeRepository.save(employee);
+			repositoryService.createEmployee(employee);
 			model.addAttribute("savedEmployee", employee);
 			model.addAttribute("savedEmployeeSuccessful", true);
 		}
-		catch (Exception e) {
+		catch (DataIntegrityViolationException e) {
 			model.addAttribute("savedEmployeeSuccessful", false);
-			if (e instanceof DataIntegrityViolationException) {
-				var error = (DataIntegrityViolationException) e;
-				model.addAttribute("errorMessage", error.getRootCause().getMessage());
-			}
+			model.addAttribute("errorMessage", e.getRootCause().getMessage());
 		}
 		return "add-employee";
+	}
+	
+	@GetMapping("edit-employee") 
+	public String showEditView(@RequestParam Integer employeeId, Model model) {
+		model.addAttribute("employee", repositoryService.readEmployee(employeeId));
+		return "edit-employee";
+	}
+	
+	@PostMapping("edit-employee")
+	public String edit(@Valid @ModelAttribute("employee") EmployeeEntity editEmployee, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("editEmployeeSuccessful", false);
+			return "edit-employee";
+		}
+		try {
+			repositoryService.updateEmployee(editEmployee);
+			model.addAttribute("editEmployee", editEmployee);
+			model.addAttribute("editEmployeeSuccessful", true);
+		}
+		catch (DataIntegrityViolationException e) {
+			model.addAttribute("editEmployeeSuccessful", false);
+			model.addAttribute("errorMessage", e.getRootCause().getMessage());
+		}
+		return "edit-employee";
 	}
 	
 	@InitBinder

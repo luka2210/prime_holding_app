@@ -116,4 +116,8 @@ public class EmployeeEntity {
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
+	
+	public String getFullNameAndId() {
+		return firstName + " " + lastName + " #ID:" + id;
+	}
 }
