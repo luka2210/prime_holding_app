@@ -12,8 +12,11 @@
 		<div> Employee ${savedEmployee.firstName } ${savedEmployee.lastName } saved to database!</div>
 	</c:if>
 	
-	<c:if test="${savedEmployeeSuccessful != null}">
+	<c:if test="${savedEmployeeSuccessful != null && !savedEmployeeSuccessful}">
 		<div> Error: could not save to database. </div>
+		<c:if test="${errorMessage != null }">
+			<div> ${errorMessage }</div>
+		</c:if>
 	</c:if>
 	
 	<form:form action="/employees/add-employee" method="POST" modelAttribute="employee">

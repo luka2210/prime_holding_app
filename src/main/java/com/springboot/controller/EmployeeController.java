@@ -2,6 +2,7 @@ package com.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springboot.entity.EmployeeEntity;
 import com.springboot.repository.EmployeeRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,14 +24,8 @@ public class EmployeeController {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
-	@InitBinder
-	public void preProcessInputData(WebDataBinder dataBinder) {
-		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-	}
-	
 	@GetMapping("/add-employee")
-	public String addEmployeeView(HttpServletRequest request, Model model) {
+	public String addEmployeeView(Model model) {
 		model.addAttribute("employee", new EmployeeEntity());
 		return "add-employee";
 	}
@@ -42,9 +36,24 @@ public class EmployeeController {
 			model.addAttribute("savedEmployeeSuccessful", false);
 			return "add-employee";
 		}
-		employeeRepository.save(employee);
-		model.addAttribute("savedEmployee", employee);
-		model.addAttribute("savedEmployeeSuccessful", true);
+		try {
+			employeeRepository.save(employee);
+			model.addAttribute("savedEmployee", employee);
+			model.addAttribute("savedEmployeeSuccessful", true);
+		}
+		catch (Exception e) {
+			model.addAttribute("savedEmployeeSuccessful", false);
+			if (e instanceof DataIntegrityViolationException) {
+				var error = (DataIntegrityViolationException) e;
+				model.addAttribute("errorMessage", error.getRootCause().getMessage());
+			}
+		}
 		return "add-employee";
+	}
+	
+	@InitBinder
+	public void preProcessInputData(WebDataBinder dataBinder) {
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 }
