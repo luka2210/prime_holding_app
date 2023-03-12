@@ -21,9 +21,6 @@
     			</a>
     	<!-- Links -->
     	<ul class="navbar-nav">
-    		<li class="nav-item">
-    			
-    		</li>
       		<li class="nav-item">
         		<a class="nav-link" href="<c:url value = "/employees/"/>">Employees</a>
       		</li>
