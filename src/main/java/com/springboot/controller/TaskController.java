@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springboot.entity.TaskEntity;
-import com.springboot.repository.EmployeeRepository;
-import com.springboot.repository.TaskRepository;
+import com.springboot.service.RepositoryService;
 
 import jakarta.validation.Valid;
 
@@ -23,33 +23,38 @@ import jakarta.validation.Valid;
 @RequestMapping("tasks")
 public class TaskController {
 	@Autowired
-	TaskRepository taskRepository;
+	RepositoryService repositoryService;
 	
-	@Autowired 
-	EmployeeRepository employeeRepository;
+	@GetMapping("/")
+	public String showTasksView(Model model) {
+		model.addAttribute("tasks", repositoryService.readAllTasks());
+		return "show-tasks";
+	}
+	
+	@PostMapping("/")
+	public String delete(@RequestParam Integer taskId, Model model) {
+		repositoryService.deleteTask(taskId);
+		model.addAttribute("tasks", repositoryService.readAllTasks());
+		return "show-tasks";
+	}
 	
 	@GetMapping("add-task")
-	public String showTaskView(Model model) {
-		model.addAttribute("allEmployees", employeeRepository.findAll());
+	public String showAddTaskView(Model model) {
 		model.addAttribute("task", new TaskEntity());
+		model.addAttribute("allEmployees", repositoryService.readAllEmployees());
 		return "add-task";
 	}
 	
 	@PostMapping("add-task") 
 	public String addTask(@Valid @ModelAttribute("task") TaskEntity task, BindingResult bindingResult, Model model) {
-		model.addAttribute("allEmployees", employeeRepository.findAll());
+		model.addAttribute("allEmployees", repositoryService.readAllEmployees());
 		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("savedTaskSuccessful", false);
 			return "add-task";
 		}
 		try {
-			//this is terrible but it's the simplest way to get data binder to work
-			if (!task.getCompleted())
-				task.setCompletionDate(null);
-			task.setEmployee(employeeRepository.findById(task.getEmployeeId()).orElse(null));		
-			
-			taskRepository.save(task);
+			repositoryService.createTask(task);
 			model.addAttribute("savedTask", task);
 			model.addAttribute("savedTaskSuccessful", true);
 		}
@@ -57,7 +62,35 @@ public class TaskController {
 			model.addAttribute("savedTaskSuccessful", false);
 			model.addAttribute("errorMessage", e.getRootCause().getMessage());
 		}
+		
 		return "add-task";
+	}
+	
+	@GetMapping("edit-task")
+	public String showEditTaskView(@RequestParam Integer taskId, Model model) {
+		model.addAttribute("task", repositoryService.readTask(taskId));
+		model.addAttribute("allEmployees", repositoryService.readAllEmployees());
+		return "edit-task";
+	}
+	
+	@PostMapping("edit-task")
+	public String showEditTaskView(@Valid @ModelAttribute("task") TaskEntity task, BindingResult bindingResult, Model model) {
+		model.addAttribute("allEmployees", repositoryService.readAllEmployees());
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("editTaskSuccessful", false);
+			return "edit-task";
+		}
+		try {
+			repositoryService.updateTask(task);
+			model.addAttribute("editTask", task);
+			model.addAttribute("editTaskSuccessful", true);
+		}
+		catch (DataIntegrityViolationException e) {
+			model.addAttribute("editTaskSuccessful", false);
+			model.addAttribute("errorMessage", e.getRootCause().getMessage());
+		}
+		
+		return "edit-task";
 	}
 	
 	@InitBinder

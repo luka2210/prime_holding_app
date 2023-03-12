@@ -26,7 +26,7 @@ public class EmployeeController {
 	RepositoryService repositoryService;
 	
 	@GetMapping("/")
-	public String showEmployees(Model model) {
+	public String showEmployeesView(Model model) {
 		model.addAttribute("employees", repositoryService.readAllEmployees());
 		return "show-employees";
 	}
@@ -39,7 +39,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/add-employee")
-	public String addEmployeeView(Model model) {
+	public String showAddEmployeeView(Model model) {
 		model.addAttribute("employee", new EmployeeEntity());
 		return "add-employee";
 	}
@@ -63,13 +63,13 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("edit-employee") 
-	public String showEditView(@RequestParam Integer employeeId, Model model) {
+	public String showEditEmployeeView(@RequestParam Integer employeeId, Model model) {
 		model.addAttribute("employee", repositoryService.readEmployee(employeeId));
 		return "edit-employee";
 	}
 	
 	@PostMapping("edit-employee")
-	public String edit(@Valid @ModelAttribute("employee") EmployeeEntity editEmployee, BindingResult bindingResult, Model model) {
+	public String editEmployee(@Valid @ModelAttribute("employee") EmployeeEntity editEmployee, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("editEmployeeSuccessful", false);
 			return "edit-employee";

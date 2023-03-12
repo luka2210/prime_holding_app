@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -20,22 +19,22 @@ public class TaskEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull(message="is required.")
-	@Size(min=5, max=30, message="must be between 5 and 30 charachers long.")
+	@NotNull(message="Title is required.")
+	@Size(max=30, message="Title can't be longer than 30 characters.")
 	@Column(unique=true)
 	private String title;
-	@NotNull(message="is required.")
-	@Size(min=10, max=150, message="must be between 10 and 150 charachers long.")
+	@NotNull(message="Description is required.")
+	@Size(max=1000, message="Can't be longer than 1000 characters.")
 	private String description;
-	@NotNull(message="is required.")
+	@NotNull(message="Due date is required.")
 	private Date dueDate;
+	@NotNull(message="Completion status is required.")
 	private Boolean completed;
 	private Date completionDate;
 	@ManyToOne
+	@NotNull(message="Assigned employee is required.")
 	@JoinColumn(name="employees_id")
 	EmployeeEntity employee;
-	@Transient
-	private Integer employeeId;
 	
 	public TaskEntity() {}
 	
@@ -71,14 +70,6 @@ public class TaskEntity {
 		this.dueDate = dueDate;
 	}
 
-	public Integer getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
-	}
-
 	public Boolean getCompleted() {
 		return completed;
 	}
@@ -103,4 +94,9 @@ public class TaskEntity {
 		this.employee = employee;
 	}
 	
+	public String getCompletedString() {
+		if (completed)
+			return "Yes";
+		return "No";
+	}
 }

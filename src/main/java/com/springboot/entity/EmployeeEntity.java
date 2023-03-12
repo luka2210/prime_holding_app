@@ -1,9 +1,9 @@
 package com.springboot.entity;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,28 +24,28 @@ public class EmployeeEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull(message="is required.")
-	@Size(min=2, max=30, message="must be between 2 and 30 charachers long.")
+	@NotNull(message="First name is required.")
+	@Size(max=30, message="First name can't be longer than 30 characters.")
 	private String firstName;
-	@NotNull(message="is required.")
-	@Size(min=2, max=30, message="must be between 2 and 30 charachers long.")
+	@NotNull(message="Last name is required.")
+	@Size(max=30, message="Last name can't be longer than 30 characters")
 	private String lastName;
 	@Column(unique=true)
-	@NotNull(message="is required.")
-	@Pattern(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="must be of proper format (e.g. test@gmail.com)")
+	@NotNull(message="E-mail is required.")
+	@Pattern(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="E-mail must be of proper format (e.g. test@gmail.com)")
 	private String email;
 	@Column(unique=true)
-	@NotNull(message="is required.")
-	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message="must be of proper format (e.g. +381-64-1122333)")
+	@NotNull(message="Phone number is required.")
+	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message="Phone number must be of proper format (e.g. +381-64-1122333)")
 	private String phoneNumber;
-	@NotNull(message="is required.")
+	@NotNull(message="Date of birth is required.")
 	private Date dateOfBirth;
 	@NotNull(message="is required.")
-	@Min(value=300, message="must be greater than 300€")
-	@Max(value=10000, message="must be less than 10000€")
+	@Min(value=300, message="Monthly salary must be greater than 300€")
+	@Max(value=10000, message="Monthly salary must be less than 10000€")
 	private Integer monthlySalary;
-	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
-	private Collection<TaskEntity> tasks;
+	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER, orphanRemoval=true)
+	private Set<TaskEntity> tasks;
 	
 	public EmployeeEntity() {}
 
@@ -105,11 +105,11 @@ public class EmployeeEntity {
 		this.monthlySalary = monthlySalary;
 	}
 	
-	public Collection<TaskEntity> getTasks() {
+	public Set<TaskEntity> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Collection<TaskEntity> tasks) {
+	public void setTasks(Set<TaskEntity> tasks) {
 		this.tasks = tasks;
 	}
 
