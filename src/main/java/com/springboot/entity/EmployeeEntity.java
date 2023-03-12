@@ -30,21 +30,23 @@ public class EmployeeEntity implements Comparable<EmployeeEntity>{
 	@Size(max=30, message="First name can't be longer than 30 characters.")
 	private String firstName;
 	@NotNull(message="Last name is required.")
-	@Size(max=30, message="Last name can't be longer than 30 characters")
+	@Size(max=30, message="Last name can't be longer than 30 characters.")
 	private String lastName;
 	@Column(unique=true)
 	@NotNull(message="E-mail is required.")
-	@Pattern(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="E-mail must be of proper format (e.g. test@gmail.com)")
+	@Pattern(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", 
+		message="E-mail must be of proper format (e.g. test@gmail.com).")
 	private String email;
 	@Column(unique=true)
 	@NotNull(message="Phone number is required.")
-	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message="Phone number must be of proper format (e.g. +381-64-1122333)")
+	@Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", 
+		message="Phone number must be of proper format (e.g. +381-64-1122333).")
 	private String phoneNumber;
 	@NotNull(message="Date of birth is required.")
 	private Date dateOfBirth;
-	@NotNull(message="is required.")
-	@Min(value=300, message="Monthly salary must be greater than 300€")
-	@Max(value=10000, message="Monthly salary must be less than 10000€")
+	@NotNull(message="Monthly salary is required.")
+	@Min(value=300, message="Monthly salary must be greater than 300€.")
+	@Max(value=10000, message="Monthly salary must be less than 10000€.")
 	private Integer monthlySalary;
 	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER, orphanRemoval=true)
 	private Set<TaskEntity> tasks;

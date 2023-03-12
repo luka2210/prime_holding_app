@@ -21,7 +21,7 @@ public class PositionEntity {
 	private String department;
 	@NotNull(message="Seniority is required.")
 	private Integer seniority;
-	@OneToMany(mappedBy="position", fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy="position", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<EmployeeEntity> employees;
 	
 	public PositionEntity() {}
@@ -79,5 +79,15 @@ public class PositionEntity {
 	
 	public Integer getNumberOfEmployees() {
 		return employees.size();
+	}
+	
+	public Float getAverageSalary() {
+		Float totalSalary = 0f;
+		for (var employee: employees) 
+			totalSalary += employee.getMonthlySalary();
+		int div = getNumberOfEmployees();
+		if (div == 0)
+			return 0f;
+		return totalSalary / div;
 	}
 }

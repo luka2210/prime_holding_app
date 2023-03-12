@@ -67,7 +67,7 @@
             <td>${employee.phoneNumber}</td>
             <td>${employee.dateOfBirth}</td>
             <td>${employee.monthlySalary}€</td>
-            <td>${employee.position.seniorityAndDepartment }
+            <td>${employee.position.seniorityAndDepartment } </td>
             <td>
             	<form action="edit-employee" method="GET">
             		<input type="hidden" name="employeeId" value="${employee.id }" />

@@ -51,7 +51,7 @@
     		<th>Seniority </th>
     		<th>Department</th>
         	<th>Number of employees</th>
-        	<th></th>
+        	<th>Average salary</th>
         	<th></th>
     	</tr>
     </thead>
@@ -62,12 +62,7 @@
         	<td>${position.seniorityString}</td>
         	<td>${position.department }</td>
         	<td>${position.numberOfEmployees}</td>
-            <td>
-            	<form action="edit-position" method="GET">
-            		<input type="hidden" name="positionId" value="${position.id }" />
-            		<input type="submit" value="Edit"/>
-            	</form>
-            </td>
+        	<td>${position.averageSalary }</td>
             <td>
             	<form action="" method="POST"> 
             		<input type="hidden" name="positionId" value="${position.id }">
