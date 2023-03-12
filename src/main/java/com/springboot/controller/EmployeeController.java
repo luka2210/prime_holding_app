@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -90,5 +92,12 @@ public class EmployeeController {
 	public void preProcessInputData(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+	
+	@GetMapping("employees-of-the-month")
+	public String getEmployeesOfTheMonthView(Model model) {
+		List<EmployeeEntity> employeesOfTheMonth = repositoryService.getTop5EmployeesOfTheMonth();
+		model.addAttribute("employees", employeesOfTheMonth);
+		return "employees-of-the-month";
 	}
 }

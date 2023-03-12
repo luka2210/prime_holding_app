@@ -1,6 +1,7 @@
 package com.springboot.entity;
 
 import java.sql.Date;
+import java.util.concurrent.TimeUnit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -98,5 +99,20 @@ public class TaskEntity {
 		if (completed)
 			return "Yes";
 		return "No";
+	}
+	
+	public boolean getCompletedOnTime() {
+		if (completionDate == null)
+			return false;
+		return dueDate.compareTo(completionDate) >= 0;
+	}
+	
+	public boolean getCompletedThisMonth() {
+		if (!getCompleted() || completionDate == null)
+			return false;
+		long diffInMilliseconds = System.currentTimeMillis() - completionDate.getTime();
+		if (diffInMilliseconds < 0)
+			return false;
+		return TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS) <= 30;
 	}
 }

@@ -1,5 +1,9 @@
 package com.springboot.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,18 +58,22 @@ public class RepositoryService {
 	}
 	
 	public void deleteTask(Integer taskId) {
-		//I HATE PERSISTANCE 
-		
-		//I HATE PERSISTANCE
-		/*var task = taskRepository.findById(taskId).orElse(null);
-		var assignedEmployee = employeeRepository.findById(task.getEmployee().getId()).orElse(null);
-		for (var taskIter: assignedEmployee.getTasks())
-			if (taskIter.getId() == task.getId()) {
-				assignedEmployee.getTasks().remove(taskIter);
-				break;
-			}
-		employeeRepository.save(assignedEmployee);
-		taskRepository.delete(task);*/
 		taskRepository.deleteById(taskId);
+	}
+	
+	public List<EmployeeEntity> getTop5EmployeesOfTheMonth() {
+		var allEmployees = employeeRepository.findAll();
+		
+		List<EmployeeEntity> employeesList = new ArrayList<>();
+		for (var employee: allEmployees)
+			employeesList.add(employee);
+		
+		Collections.sort(employeesList);
+		
+		List<EmployeeEntity> topEmployees = new ArrayList<>();
+		for (int i = 0; i < Math.min(employeesList.size(), 5); i++)
+			topEmployees.add(employeesList.get(i));
+			
+		return topEmployees;
 	}
 }

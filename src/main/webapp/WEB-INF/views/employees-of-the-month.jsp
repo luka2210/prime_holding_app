@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Employees</title>
+	<title>Employees of the month</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
 </head>
@@ -28,7 +28,7 @@
         		<a class="nav-link" href="<c:url value = "/tasks/"/>">Tasks</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="#">Employee of the month</a>
       		</li>
    		</ul>
  	 	</div>
@@ -37,22 +37,14 @@
 
 	<div class="container">
 	<div class="row">
-		<form action="add-employee" method="GET">
-			<input type="submit" value="Add Employee"/>
-		</form>
-	</div>
-	<div class="row">
 		<table id="employees_table" class="table table-striped table-hover table-active" style="width:100%">
 		<thead>
     	<tr>
     		<th>ID </th>
     		<th>Name </th>
-    		<th>E-mail address</th>
-        	<th>Phone number</th>
-        	<th>Date of birth</th>
-        	<th>Salary</th>
-        	<th></th>
-        	<th></th>
+    		<th>Tasks completed</th>
+        	<th>Tasks completed on time</th>
+        	<th>Score</th>
     	</tr>
     </thead>
     <tbody>
@@ -60,37 +52,14 @@
         <tr>
         	<td>${employee.id}</td>
         	<td>${employee.fullName}</td>
-        	<td>${employee.email}</td>
-            <td>${employee.phoneNumber}</td>
-            <td>${employee.dateOfBirth}</td>
-            <td>${employee.monthlySalary}€</td>
-            <td>
-            	<form action="edit-employee" method="GET">
-            		<input type="hidden" name="employeeId" value="${employee.id }" />
-            		<input type="submit" value="Edit"/>
-            	</form>
-            </td>
-            <td>
-            	<form action="" method="POST"> 
-            		<input type="hidden" name="employeeId" value="${employee.id }">
-            		<input type="submit" value="Delete"/>
-            	</form>
-            </td>
+        	<td>${employee.completedTasks}</td>
+            <td>${employee.completedTasksOnTime}</td>
+            <td>${employee.score}</td>
         </tr>
     </c:forEach>
     </tbody>
 	</table>
 	</div>
 	</div>
-
-	
-	<script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
-	<script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"> </script>
-	<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"> </script>
-	<script>
-		$(document).ready(function () {
-	    	$('#employees_table').DataTable();
-		});
-	</script>
 </body>
 </html>

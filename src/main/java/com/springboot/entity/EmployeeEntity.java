@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="employees")
-public class EmployeeEntity {
+public class EmployeeEntity implements Comparable<EmployeeEntity>{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -119,5 +119,34 @@ public class EmployeeEntity {
 	
 	public String getFullNameAndId() {
 		return firstName + " " + lastName + " #ID:" + id;
+	}
+	
+	public int getCompletedTasks() {
+		int completedTasks = 0;
+		for (var task: tasks) 
+			if (task.getCompletedThisMonth())
+				completedTasks++;
+		return completedTasks;
+	}
+	
+	public int getCompletedTasksOnTime() {
+		int completedTasksOnTime = 0;
+		for (var task: tasks)
+			if (task.getCompletedOnTime() && task.getCompletedThisMonth())
+				completedTasksOnTime++;
+		return completedTasksOnTime;
+	}
+	
+	public float getScore() {
+		return getCompletedTasks() + getCompletedTasksOnTime() / 2.0f;
+	}
+
+	@Override
+	public int compareTo(EmployeeEntity o) {
+		if (this.getScore() < o.getScore())
+			return 1;
+		if (this.getScore() > o.getScore())
+			return -1;
+		return 0;
 	}
 }
