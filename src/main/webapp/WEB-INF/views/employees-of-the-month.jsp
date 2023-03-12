@@ -28,12 +28,16 @@
         		<a class="nav-link" href="<c:url value = "/tasks/"/>">Tasks</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="#">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
+      		</li>
+      		<li class="nav-item">
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
       		</li>
    		</ul>
  	 	</div>
-      	
 	</nav>
+	
+	<br> <br>
 
 	<div class="container">
 	<div class="row">
