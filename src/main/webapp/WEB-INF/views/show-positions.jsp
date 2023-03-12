@@ -62,7 +62,7 @@
         	<td>${position.seniorityString}</td>
         	<td>${position.department }</td>
         	<td>${position.numberOfEmployees}</td>
-        	<td>${position.averageSalary }</td>
+        	<td>${position.averageSalaryString }</td>
             <td>
             	<form action="" method="POST"> 
             		<input type="hidden" name="positionId" value="${position.id }">

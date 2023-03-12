@@ -90,4 +90,11 @@ public class PositionEntity {
 			return 0f;
 		return totalSalary / div;
 	}
+	
+	public String getAverageSalaryString() {
+		float avgSalary = getAverageSalary();
+		if (avgSalary == 0)
+			return "0";
+		return String.format("%,.3f", avgSalary);
+	}
 }
