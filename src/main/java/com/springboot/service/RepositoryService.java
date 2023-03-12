@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.entity.EmployeeEntity;
+import com.springboot.entity.PositionEntity;
 import com.springboot.entity.TaskEntity;
 import com.springboot.repository.EmployeeRepository;
+import com.springboot.repository.PositionRepository;
 import com.springboot.repository.TaskRepository;
 
 @Service
@@ -18,6 +20,8 @@ public class RepositoryService {
 	EmployeeRepository employeeRepository;
 	@Autowired 
 	TaskRepository taskRepository;
+	@Autowired
+	PositionRepository positionRepository;
 	
 	public EmployeeEntity createEmployee(EmployeeEntity employee) {
 		return employeeRepository.save(employee);
@@ -39,10 +43,10 @@ public class RepositoryService {
 		employeeRepository.deleteById(employeeId);
 	}
 	
-	public void createTask(TaskEntity task) {
+	public TaskEntity createTask(TaskEntity task) {
 		if (!task.getCompleted())
 			task.setCompletionDate(null);
-		taskRepository.save(task);
+		return taskRepository.save(task);
 	}
 	
 	public Iterable<TaskEntity> readAllTasks() {
@@ -53,8 +57,8 @@ public class RepositoryService {
 		return taskRepository.findById(taskId).orElse(null);
 	}
 	
-	public void updateTask(TaskEntity task) {
-		createTask(task);
+	public TaskEntity updateTask(TaskEntity task) {
+		return createTask(task);
 	}
 	
 	public void deleteTask(Integer taskId) {
@@ -75,5 +79,25 @@ public class RepositoryService {
 			topEmployees.add(employeesList.get(i));
 			
 		return topEmployees;
+	}
+	
+	public PositionEntity createPosition(PositionEntity position) {
+		return positionRepository.save(position);
+	}
+	
+	public Iterable<PositionEntity> readAllPositions() {
+		return positionRepository.findAll();
+	}
+	
+	public PositionEntity readPosition(Integer positionId) {
+		return positionRepository.findById(positionId).orElse(null);
+	}
+	
+	public PositionEntity updatePosition(PositionEntity position) {
+		return positionRepository.save(position);
+	}
+	
+	public void deletePosition(Integer positionId) {
+		positionRepository.deleteById(positionId);
 	}
 }

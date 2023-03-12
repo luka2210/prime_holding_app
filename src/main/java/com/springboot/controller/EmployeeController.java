@@ -42,12 +42,14 @@ public class EmployeeController {
 	
 	@GetMapping("/add-employee")
 	public String showAddEmployeeView(Model model) {
+		model.addAttribute("allPositions", repositoryService.readAllPositions());
 		model.addAttribute("employee", new EmployeeEntity());
 		return "add-employee";
 	}
 	
 	@PostMapping("/add-employee")
 	public String addEmployee(@Valid @ModelAttribute("employee") EmployeeEntity employee, BindingResult bindingResult, Model model) {
+		model.addAttribute("allPositions", repositoryService.readAllPositions());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("savedEmployeeSuccessful", false);
 			return "add-employee";
@@ -66,12 +68,14 @@ public class EmployeeController {
 	
 	@GetMapping("edit-employee") 
 	public String showEditEmployeeView(@RequestParam Integer employeeId, Model model) {
+		model.addAttribute("allPositions", repositoryService.readAllPositions());
 		model.addAttribute("employee", repositoryService.readEmployee(employeeId));
 		return "edit-employee";
 	}
 	
 	@PostMapping("edit-employee")
 	public String editEmployee(@Valid @ModelAttribute("employee") EmployeeEntity editEmployee, BindingResult bindingResult, Model model) {
+		model.addAttribute("allPositions", repositoryService.readAllPositions());
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("editEmployeeSuccessful", false);
 			return "edit-employee";

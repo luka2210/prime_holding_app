@@ -10,6 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
@@ -46,6 +48,10 @@ public class EmployeeEntity implements Comparable<EmployeeEntity>{
 	private Integer monthlySalary;
 	@OneToMany(mappedBy="employee", fetch = FetchType.EAGER, orphanRemoval=true)
 	private Set<TaskEntity> tasks;
+	@ManyToOne
+	@NotNull(message="Position is required.")
+	@JoinColumn(name="positions_id")
+	private PositionEntity position;
 	
 	public EmployeeEntity() {}
 
@@ -119,6 +125,14 @@ public class EmployeeEntity implements Comparable<EmployeeEntity>{
 	
 	public String getFullNameAndId() {
 		return firstName + " " + lastName + " #ID:" + id;
+	}
+	
+	public PositionEntity getPosition() {
+		return position;
+	}
+
+	public void setPosition(PositionEntity position) {
+		this.position = position;
 	}
 	
 	public int getCompletedTasks() {

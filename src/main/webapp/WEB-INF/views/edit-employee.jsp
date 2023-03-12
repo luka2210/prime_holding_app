@@ -37,6 +37,13 @@
 		<form:label path="dateOfBirth"> Date of birth: </form:label> 
 			<form:input type="date" path="dateOfBirth" max="2005-12-31" min="1923-01-01"/> 
 			<form:errors path="dateOfBirth" cssClass="error"/> <br>
+		<form:label path="position"> Position: </form:label>
+			<form:select path="position">
+				<c:forEach items="${allPositions }" var="position" varStatus="status">
+					<form:option value="${position }" label="${position.seniorityAndDepartment }"/>
+				</c:forEach>
+			</form:select> 
+				<form:errors path="position" cssClass="error"/> <br>
 		<form:input type="number" path="monthlySalary" placeholder="Monthly salary (in €)"/> 
 			<form:errors path="monthlySalary" cssClass="error"/> <br>
 		<input type="submit" value="Save">

@@ -20,7 +20,7 @@ import com.springboot.service.RepositoryService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("tasks")
+@RequestMapping("/tasks")
 public class TaskController {
 	@Autowired
 	RepositoryService repositoryService;

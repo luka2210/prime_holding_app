@@ -36,6 +36,7 @@ public class TaskEntity {
 	@NotNull(message="Assigned employee is required.")
 	@JoinColumn(name="employees_id")
 	EmployeeEntity employee;
+
 	
 	public TaskEntity() {}
 	
