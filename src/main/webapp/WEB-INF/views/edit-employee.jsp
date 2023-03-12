@@ -31,7 +31,7 @@
         		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Top 5 Employees of the month</a>
       		</li>
    		</ul>
  	 	</div>
@@ -71,7 +71,7 @@
 				<form:errors path="position" cssClass="error"/> <br>
 		<form:input type="number" path="monthlySalary" placeholder="Monthly salary (in €)"/> 
 			<form:errors path="monthlySalary" cssClass="error"/> <br>
-		<input type="submit" value="Save">
+		<input type="submit" value="Save" class="btn btn-outline-success">
 	</form:form>
 	
 	<script type="text/javascript">

@@ -31,16 +31,19 @@
         		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Top 5 Employees of the month</a>
       		</li>
    		</ul>
  	 	</div>
 	</nav>
-	
-	<br> <br>
 
 	<div class="container">
-	<div class="row">
+	<div class="mt-4 d-flex justify-content-center">
+		<div class="display-4">
+			<b> Top 5 Employees of the month </b>
+		</div>
+	</div>
+	<div class="row mt-4">
 		<table id="employees_table" class="table table-striped table-hover table-active" style="width:100%">
 		<thead>
     	<tr>

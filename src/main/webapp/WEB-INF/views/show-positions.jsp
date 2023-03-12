@@ -31,19 +31,24 @@
         		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Top 5 Employees of the month</a>
       		</li>
    		</ul>
  	 	</div>
 	</nav>
 
 	<div class="container">
-	<div class="row">
-		<form action="add-position" method="GET">
-			<input type="submit" value="Add Position"/>
-		</form>
+	<div class="mt-4 d-flex justify-content-center">
+		<div class="display-4">
+			<b> Positions </b>
+		</div>
 	</div>
 	<div class="row">
+		<form action="add-position" method="GET">
+			<input type="submit" value="+Add Position" class="btn btn-outline-primary"/>
+		</form>
+	</div>
+	<div class="row mt-2">
 		<table id="positions_table" class="table table-striped table-hover table-active" style="width:100%">
 		<thead>
     	<tr>
@@ -62,11 +67,11 @@
         	<td>${position.seniorityString}</td>
         	<td>${position.department }</td>
         	<td>${position.numberOfEmployees}</td>
-        	<td>${position.averageSalaryString }</td>
+        	<td>${position.averageSalaryString }€</td>
             <td>
             	<form action="" method="POST"> 
             		<input type="hidden" name="positionId" value="${position.id }">
-            		<input type="submit" value="Delete"/>
+            		<input type="submit" value="Delete" class="btn btn-outline-danger"/>
             	</form>
             </td>
         </tr>

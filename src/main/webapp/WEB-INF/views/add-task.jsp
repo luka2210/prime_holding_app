@@ -31,7 +31,7 @@
         		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Top 5 Employees of the month</a>
       		</li>
    		</ul>
  	 	</div>
@@ -70,7 +70,7 @@
 			<form:label path="completionDate"> Completed on: </form:label> 
 			<form:input type="date" path="completionDate" value="2023-03-13" max="2033-12-31" min="2020-01-01"/> 
 		</div>
-		<input type="submit" value="Save">
+		<input type="submit" value="Save" class="btn btn-outline-success">
 	</form:form>
 	
 	<script type="text/javascript">

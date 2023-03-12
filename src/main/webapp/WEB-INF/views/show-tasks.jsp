@@ -31,19 +31,24 @@
         		<a class="nav-link" href="<c:url value = "/positions/"/>">Positions</a>
       		</li>
       		<li class="nav-item">
-        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Employee of the month</a>
+        		<a class="nav-link" href="<c:url value = "/employees/employees-of-the-month"/>">Top 5 Employees of the month</a>
       		</li>
    		</ul>
  	 	</div>
 	</nav>
 	
 	<div class="container">
-	<div class="row">
-		<form action="add-task" method="GET">
-			<input type="submit" value="Add Task"/>
-		</form>
+	<div class="mt-4 d-flex justify-content-center">
+		<div class="display-4">
+			<b> Tasks </b>
+		</div>
 	</div>
 	<div class="row">
+		<form action="add-task" method="GET">
+			<input type="submit" value="+Add Task" class="btn btn-outline-primary"/>
+		</form>
+	</div>
+	<div class="row mt-2">
 	<table id="tasks_table" class="table table-striped table-hover table-active" style="width:100%">
 	<thead>
     	<tr>
@@ -71,13 +76,13 @@
             <td>
             	<form action="edit-task" method="GET">
             		<input type="hidden" name="taskId" value="${task.id }" />
-            		<input type="submit" value="Edit"/>
+            		<input type="submit" value="Edit" class="btn btn-outline-dark"/>
             	</form>
             </td>
             <td>
             	<form action="" method="POST"> 
             		<input type="hidden" name="taskId" value="${task.id }">
-            		<input type="submit" value="Delete"/>
+            		<input type="submit" value="Delete" class="btn btn-outline-danger"/>
             	</form>
             </td>
         </tr>
