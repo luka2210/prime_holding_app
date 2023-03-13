@@ -50,9 +50,7 @@
 			<div class="alert alert-danger w-25"> 
 				Error: could not save to database. 
 				<c:if test="${errorMessage != null }">
-					<div>
-						${errorMessage }
-					</div>
+					<div> ${errorMessage } </div>
 				</c:if>
 			</div>
 		</div>
@@ -65,6 +63,7 @@
                     <div class="form-items">
                     	<h3>Add new employee</h3>
                         <p>Fill in the data below.</p>
+                        <p>*E-mail and phone number must be unique</p>
 						<form:form action="/employees/add-employee" method="POST" modelAttribute="employee">
 							<div class="form-row">
 								<form:input type="text" path="firstName" placeholder="First name"/> 

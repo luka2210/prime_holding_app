@@ -50,9 +50,7 @@
 			<div class="alert alert-danger w-25"> 
 				Error: could not save to database. 
 				<c:if test="${errorMessage != null }">
-					<div>
-						${errorMessage }
-					</div>
+					<div> ${errorMessage } </div>
 				</c:if>
 			</div>
 		</div>

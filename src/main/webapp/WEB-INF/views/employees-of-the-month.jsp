@@ -49,8 +49,8 @@
     	<tr>
     		<th>ID </th>
     		<th>Name </th>
-    		<th>Tasks completed</th>
-        	<th>Tasks completed on time</th>
+    		<th>Tasks completed this month</th>
+        	<th>Tasks completed this month on time</th>
         	<th>Score</th>
     	</tr>
     </thead>

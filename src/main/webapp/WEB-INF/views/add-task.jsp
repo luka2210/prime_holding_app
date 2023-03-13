@@ -49,10 +49,10 @@
 		<div class="row d-flex justify-content-center mt-4 mb-0">
 			<div class="alert alert-danger w-25"> 
 				Error: could not save to database. 
+				<c:if test="${errorMessage != null }">
+					<div> ${errorMessage }</div>
+				</c:if>
 			</div>
-			<c:if test="${errorMessage != null }">
-				<div> ${errorMessage }</div>
-			</c:if>
 		</div>
 	</c:if>
 	
@@ -63,6 +63,7 @@
                     <div class="form-items">
                     	<h3>Add new task</h3>
                         <p>Fill in the data below.</p>
+                        <p>*Title must be unique</p>
 						<form:form action="/tasks/add-task" method="POST" modelAttribute="task">
 							<div class="form-row">
 								<form:input type="text" path="title" placeholder="Task title"/> 

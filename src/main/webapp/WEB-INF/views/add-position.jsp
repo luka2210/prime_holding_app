@@ -49,10 +49,10 @@
 		<div class="row d-flex justify-content-center mt-4 mb-0">
 			<div class="alert alert-danger w-25"> 
 				Error: could not save to database. 
+				<c:if test="${errorMessage != null }">
+					<div> ${errorMessage }</div>
+				</c:if>
 			</div>
-			<c:if test="${errorMessage != null }">
-				<div> ${errorMessage }</div>
-			</c:if>
 		</div>
 	</c:if>
 	
