@@ -36,7 +36,5 @@
    		</ul>
  	 	</div>
 	</nav>
-
-	Home page
 </body>
 </html>
