@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Add Position</title>
+	<title>Edit Position</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 	<link href="<c:url value="/css/form-design.css"/>" rel="stylesheet" type="text/css">
 </head>
@@ -37,15 +37,15 @@
  	 	</div>
 	</nav>
 
-	<c:if test="${savedPositionSuccessful}">
+	<c:if test="${editPositionSuccessful}">
 		<div class="row d-flex justify-content-center mt-4 mb-0">
 			<div class="alert alert-success w-25"> 
-				Position "${savedPosition.seniorityAndDepartment}" saved to database!
+				Changes on "${editPosition.seniorityAndDepartment}" saved to database!
 			</div>
 		</div>
 	</c:if>
 	
-	<c:if test="${savedPositionSuccessful != null && !savedPositionSuccessful}">
+	<c:if test="${editPositionSuccessful != null && !editPositionSuccessful}">
 		<div class="row d-flex justify-content-center mt-4 mb-0">
 			<div class="alert alert-danger w-25"> 
 				Error: could not save to database. 
@@ -62,9 +62,11 @@
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                    	<h3>Add new position</h3>
-                        <p>Fill in the data below.</p>
-						<form:form action="/positions/add-position" method="POST" modelAttribute="position">
+                    	<h3>Edit position</h3>
+                        <p>Alter the data below.</p>
+						<form:form action="/positions/edit-position" method="POST" modelAttribute="position">
+							<form:input type="hidden" path="id"/>
+							<form:input type="hidden" path="employees"/>
 							<div class="form-row">
 								<form:input type="text" path="department" placeholder="Department"/> 
 								<form:errors path="department" cssClass="error"/> <br>
@@ -80,7 +82,7 @@
 								<form:errors path="seniority" cssClass="error"/> <br>
 							</div>
 							<div class="form-button mt-3">
-								<input type="submit" value="Save" class="btn btn-primary btn-lg">
+								<input type="submit" value="Save changes" class="btn btn-primary btn-lg">
 							</div>
 						</form:form>
 					</div>

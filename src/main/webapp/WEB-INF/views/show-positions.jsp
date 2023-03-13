@@ -58,6 +58,7 @@
         	<th>Number of employees</th>
         	<th>Average salary</th>
         	<th></th>
+        	<th></th>
     	</tr>
     </thead>
     <tbody>
@@ -68,6 +69,12 @@
         	<td>${position.department }</td>
         	<td>${position.numberOfEmployees}</td>
         	<td>${position.averageSalaryString }€</td>
+        	<td>
+            	<form action="/positions/edit-position" method="GET"> 
+            		<input type="hidden" name="positionId" value="${position.id }">
+            		<input type="submit" value="Edit" class="btn btn-outline-dark"/>
+            	</form>
+            </td>
             <td>
             	<form action="" method="POST"> 
             		<input type="hidden" name="positionId" value="${position.id }">

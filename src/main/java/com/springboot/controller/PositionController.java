@@ -62,6 +62,30 @@ public class PositionController {
 		return "add-position";
 	}
 	
+	@GetMapping("/edit-position")
+	public String showEditPositionView(@RequestParam Integer positionId, Model model) {
+		model.addAttribute("position", repositoryService.readPosition(positionId));
+		return "edit-position";
+	}
+	
+	@PostMapping("/edit-position")
+	public String editPosition(@Valid @ModelAttribute("position") PositionEntity position, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("editPositionSuccessful", false);
+			return "edit-position";
+		}
+		try {
+			repositoryService.createPosition(position);
+			model.addAttribute("editPosition", position);
+			model.addAttribute("editPositionSuccessful", true);
+		}
+		catch (DataIntegrityViolationException e) {
+			model.addAttribute("editPositionSuccessful", false);
+			model.addAttribute("errorMessage", e.getRootCause().getMessage());
+		}
+		return "edit-position";
+	}
+	
 	@InitBinder
 	public void preProcessInputData(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);

@@ -95,6 +95,6 @@ public class PositionEntity {
 		float avgSalary = getAverageSalary();
 		if (avgSalary == 0)
 			return "0";
-		return String.format("%,.3f", avgSalary);
+		return String.format("%,.2f", avgSalary);
 	}
 }
